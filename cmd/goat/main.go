@@ -231,7 +231,7 @@ func createProject(pName, mName string, usingVscode bool) {
 		if err != nil {
 			return err
 		}
-		err = exec.Command("npx", "tailwindcss", "init").Run()
+		err = exec.Command("npm", "tailwindcss", "init").Run()
 		if err != nil {
 			return err
 		}
@@ -257,7 +257,7 @@ func createProject(pName, mName string, usingVscode bool) {
 			return err
 		}
 		// generate tailwind css
-		return exec.Command("npx", "tailwindcss", "-i", "./input.css", "-o", "./public/tailwind.css", "--minify").Run()
+		return exec.Command("npm", "tailwindcss", "-i", "./input.css", "-o", "./public/tailwind.css", "--minify").Run()
 	})
 
 	performStepWithLogging("Setting up Air", "Air set up", func() error {
@@ -273,7 +273,7 @@ func createProject(pName, mName string, usingVscode bool) {
 		// find cmd and add tailwind and templ steps
 		cmdIdx := strings.Index(fStr, "cmd")
 		cmdEndIdx := strings.Index(fStr[cmdIdx:], "\n")
-		fStr = fStr[:cmdIdx] + "cmd = \"npx tailwindcss -i ./input.css -o ./public/tailwind.css --minify && templ generate && go build -o ./tmp/main .\"" + fStr[cmdIdx+cmdEndIdx:]
+		fStr = fStr[:cmdIdx] + "cmd = \"npm tailwindcss -i ./input.css -o ./public/tailwind.css --minify && templ generate && go build -o ./tmp/main .\"" + fStr[cmdIdx+cmdEndIdx:]
 		// find exclude_dir list and append node_modules
 		excludeDirIdx := strings.Index(fStr, "exclude_dir")
 		insertIdx := strings.Index(fStr[excludeDirIdx:], "]")
@@ -379,7 +379,7 @@ func main() {
 		checkPreReq("go")
 		checkPreReq("air")
 		checkPreReq("npm")
-		checkPreReq("npx")
+		checkPreReq("npm")
 		checkPreReq("templ")
 		checkPreReq("git")
 		fmt.Println()
